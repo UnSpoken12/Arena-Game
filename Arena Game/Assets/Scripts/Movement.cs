@@ -28,5 +28,11 @@ public class Movement : MonoBehaviour
         {
             transform.localScale = new Vector2(-1, 1);
         }
+
+        // Attacking
+        if (Input.GetMouseButtonDown(0))
+        {
+            animator.SetTrigger("Attack");
+        }
     }
 }
