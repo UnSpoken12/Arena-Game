@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
         transform.Translate(new Vector2(totalHoriMovement, totalVertMovement));
 
         // Transition to walking animation
-        animator.SetFloat("Speed", Mathf.Abs(horizontalInput));
+        animator.SetFloat("Speed", Mathf.Abs(horizontalInput + verticalInput));
 
         // Change the direction it's facing
         if (horizontalInput > 0)
