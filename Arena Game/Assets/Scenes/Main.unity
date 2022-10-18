@@ -4796,7 +4796,7 @@ GameObject:
   - component: {fileID: 1317238130}
   - component: {fileID: 1317238129}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Arena
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

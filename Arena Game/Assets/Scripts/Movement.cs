@@ -5,13 +5,16 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     private float speed = 1.5f;
+    private float lastAttacked = 0;
+    private float attackInterval = 1f;
     public Animator animator;
 
     private void Update()
     {
-        // Movement
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
+
+        // Movement
         float totalHoriMovement = horizontalInput * Time.deltaTime * speed;
         float totalVertMovement = verticalInput * Time.deltaTime * speed;
         transform.Translate(new Vector2(totalHoriMovement, totalVertMovement));
@@ -30,9 +33,10 @@ public class Movement : MonoBehaviour
         }
 
         // Attacking
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Time.time > lastAttacked + attackInterval)
         {
             animator.SetTrigger("Attack");
+            lastAttacked = Time.time;
         }
     }
 }
