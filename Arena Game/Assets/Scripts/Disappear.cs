@@ -1,20 +1,40 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Disappear : MonoBehaviour
 {
-    public float seconds = 5;
-
+    [SerializeField]
+    private float seconds = 5f;
+    private float flashSeconds = .5f;
+    public TilemapRenderer[] tilemap;
 
     void Start()
     {
-        StartCoroutine(BreakGround());
+        StartCoroutine(FlashFloor());
     }
 
-    IEnumerator BreakGround()
+    IEnumerator FlashFloor()
     {
-        yield return new WaitForSeconds(seconds);
+        bool flash = false;
+        foreach (TilemapRenderer t in tilemap)
+        {
+            yield return new WaitForSeconds(seconds);
+            for (int i = 0; i < 7; i++)
+            {
+                yield return new WaitForSeconds(flashSeconds);
+                if (i % 2 == 0)
+                {
+                    flash = false;
+                }
+                else if (i % 2 == 1)
+                {
+                    flash = true;
+                }
+                t.enabled = flash;
+            }
+            t.tag = "Void";
+            t.enabled = false;
+        }
     }
 }
