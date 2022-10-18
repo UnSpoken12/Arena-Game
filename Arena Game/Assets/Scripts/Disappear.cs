@@ -14,6 +14,9 @@ public class Disappear : MonoBehaviour
         StartCoroutine(FlashFloor());
     }
 
+    /* Flash indicator for when the floor starts disappearing
+     * over an array of tilemaps 
+     */
     IEnumerator FlashFloor()
     {
         bool flash = false;

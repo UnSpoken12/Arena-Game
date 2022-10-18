@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        // Input
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
@@ -32,7 +33,7 @@ public class Movement : MonoBehaviour
             transform.localScale = new Vector2(-1, 1);
         }
 
-        // Attacking
+        // Attacking and attack interval/animation
         if (Input.GetMouseButtonDown(0) && Time.time > lastAttacked + attackInterval)
         {
             animator.SetTrigger("Attack");

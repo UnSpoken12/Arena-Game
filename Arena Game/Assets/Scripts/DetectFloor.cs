@@ -6,7 +6,6 @@ public class DetectFloor : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(onFloor);
         if (!onFloor)
         {
             Destroy(this.gameObject);
