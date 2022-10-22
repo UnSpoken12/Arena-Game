@@ -3934,6 +3934,10 @@ PrefabInstance:
       propertyPath: m_Alpha
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7895793287005622959, guid: c92da3bea559a7e4d9091b8247e0107f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c92da3bea559a7e4d9091b8247e0107f, type: 3}
 --- !u!1 &494985570
@@ -4895,6 +4899,37 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7895793287005622959, guid: c92da3bea559a7e4d9091b8247e0107f, type: 3}
   m_PrefabInstance: {fileID: 212801383}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1192834836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1192834837}
+  m_Layer: 6
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1192834837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192834836}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.008, y: -0.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1800269563}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1317238128
 GameObject:
   m_ObjectHideFlags: 0
@@ -16388,7 +16423,7 @@ GameObject:
   - component: {fileID: 1729807230}
   - component: {fileID: 1729807231}
   - component: {fileID: 1729807232}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Slime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16556,7 +16591,7 @@ GameObject:
   - component: {fileID: 1800269565}
   - component: {fileID: 1800269566}
   - component: {fileID: 1800269567}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16646,7 +16681,8 @@ Transform:
   m_LocalPosition: {x: -0.659, y: 0.038, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1192834837}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16663,6 +16699,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1800269561}
+  attackPoint: {fileID: 1192834837}
+  attackRange: 0.5
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!61 &1800269565
 BoxCollider2D:
   m_ObjectHideFlags: 0

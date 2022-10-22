@@ -8,6 +8,9 @@ public class Movement : MonoBehaviour
     private float lastAttacked = 0;
     private float attackInterval = 1f;
     public Animator animator;
+    public Transform attackPoint;
+    public float attackRange = 0.5f;
+    public LayerMask enemyLayers;
 
     private void Update()
     {
@@ -38,6 +41,13 @@ public class Movement : MonoBehaviour
         {
             animator.SetTrigger("Attack");
             lastAttacked = Time.time;
+
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+            foreach(Collider2D enemy in hitEnemies)
+            {
+                Debug.Log("We hit " + enemy.name);
+            }
         }
     }
 }
