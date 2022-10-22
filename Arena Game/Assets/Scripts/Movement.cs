@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     private float attackInterval = 1f;
     public Animator animator;
     public Transform attackPoint;
-    public float attackRange = 0.5f;
+    public float attackRange = 0.2f;
     public LayerMask enemyLayers;
 
     private void Update()
@@ -46,7 +46,8 @@ public class Movement : MonoBehaviour
 
             foreach(Collider2D enemy in hitEnemies)
             {
-                Debug.Log("We hit " + enemy.name);
+                enemy.GetComponent<Slime>().Damage();
+                Debug.Log("Hit");
             }
         }
     }
