@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public Disappear arenaBreak;
     private State state;
-    public enum State { IDLE, COMBAT, DEAD }
+    public enum State { IDLE, DEAD, WIN }
 
     void Start()
     {
@@ -23,10 +23,13 @@ public class GameManager : MonoBehaviour
                     arenaBreak.enabled = true;
                 }
                 break;
+            case State.WIN:
+                // Win condition - Killed all enemies
+                // ...
+                break;
             case State.DEAD:
                 Death();
                 break;
-
             default:
                 Debug.Log("There is no state called" + state);
                 break;
@@ -42,5 +45,6 @@ public class GameManager : MonoBehaviour
     {
         player.GetComponent<SpriteRenderer>().enabled = false;
         player.GetComponent<Movement>().enabled = false;
+        DetectFloor.playerDead -= playerDead;
     }
 }
