@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -7,9 +5,9 @@ public class Movement : MonoBehaviour
     private float speed = 1.5f;
     private float lastAttacked = 0;
     private float attackInterval = 1f;
+    private float attackRange = 0.2f;
     public Animator animator;
     public Transform attackPoint;
-    public float attackRange = 0.2f;
     public LayerMask enemyLayers;
 
     private void Update()
@@ -18,15 +16,15 @@ public class Movement : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        // Movement
+        #region // Movement
         float totalHoriMovement = horizontalInput * Time.deltaTime * speed;
         float totalVertMovement = verticalInput * Time.deltaTime * speed;
         transform.Translate(new Vector2(totalHoriMovement, totalVertMovement));
 
-        // Transition to walking animation
+        // Walking animation
         animator.SetFloat("Speed", Mathf.Abs(horizontalInput + verticalInput));
 
-        // Change the direction it's facing
+        // Change the direction player is facing
         if (horizontalInput > 0)
         {
             transform.localScale = new Vector2(1, 1);
@@ -35,8 +33,9 @@ public class Movement : MonoBehaviour
         {
             transform.localScale = new Vector2(-1, 1);
         }
+        #endregion
 
-        // Attacking and attack interval/animation
+        #region// Combat
         if (Input.GetMouseButtonDown(0) && Time.time > lastAttacked + attackInterval)
         {
             animator.SetTrigger("Attack");
@@ -50,5 +49,6 @@ public class Movement : MonoBehaviour
                 Debug.Log("Hit");
             }
         }
+        #endregion
     }
 }

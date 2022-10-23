@@ -3,12 +3,14 @@ using UnityEngine;
 public class DetectFloor : MonoBehaviour
 {
     private bool onFloor = true;
+    public delegate void PlayerDead();
+    public static event PlayerDead playerDead;
 
     private void Update()
     {
         if (!onFloor)
         {
-            Destroy(this.gameObject);
+            playerDead?.Invoke();
         }
     }
 

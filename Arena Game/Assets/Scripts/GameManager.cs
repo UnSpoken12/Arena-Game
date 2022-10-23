@@ -1,18 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject player;
+    public Disappear arenaBreak;
+    private State state;
+    public enum State { IDLE, COMBAT, DEAD }
+
     void Start()
     {
-        
+        DetectFloor.playerDead += playerDead;
+        state = State.IDLE;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        switch (state)
+        {
+            case State.IDLE:
+                if (Input.GetMouseButton(0))
+                {
+                    arenaBreak.enabled = true;
+                }
+                break;
+            case State.DEAD:
+                Death();
+                break;
+
+            default:
+                Debug.Log("There is no state called" + state);
+                break;
+        }
+    }
+
+    private void playerDead()
+    {
+        state = State.DEAD;
+    }
+
+    private void Death()
+    {
+        player.GetComponent<SpriteRenderer>().enabled = false;
+        player.GetComponent<Movement>().enabled = false;
     }
 }
