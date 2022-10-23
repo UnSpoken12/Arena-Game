@@ -12,6 +12,12 @@ public class Menu : MonoBehaviour
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
     }
 
+    public void EndGame()
+    {
+        Debug.Log("QUIT");
+        Application.Quit();
+    }
+
     IEnumerator LoadLevel(int levelIndex)
     {
         transition.SetTrigger("Start");
