@@ -16426,7 +16426,7 @@ GameObject:
   - component: {fileID: 1729807233}
   m_Layer: 7
   m_Name: Slime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16607,7 +16607,7 @@ GameObject:
   - component: {fileID: 1800269567}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16714,7 +16714,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1800269561}
   attackPoint: {fileID: 1192834837}
-  attackRange: 0.2
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
