@@ -29,25 +29,25 @@ public class Slime : MonoBehaviour
         // Finds quandrant that it should be moving in
         if (targetX > 0 && targetY > 0) // Q1
         {
-            double angle = Math.Atan2(targetX, targetY);
+            double angle = Math.Atan2(targetY, targetX);
             nextX = (float)Math.Cos(angle) * speed * Time.deltaTime;
             nextY = (float)Math.Sin(angle) * speed * Time.deltaTime;
         }
         else if (targetY > 0) // Q2
         {
-            double angle = Math.Atan2(-1 * targetX, targetY);
+            double angle = Math.Atan2(targetY, -1 * targetX);
             nextX = -1 * (float)Math.Cos(angle) * speed * Time.deltaTime;
             nextY = (float)Math.Sin(angle) * speed * Time.deltaTime;
         }
         else if (targetX < 0) // Q3
         {
-            double angle = Math.Atan2(-1 * targetX, -1 * targetY);
+            double angle = Math.Atan2(-1 * targetY, -1 * targetX);
             nextX = -1 * (float)Math.Cos(angle) * speed * Time.deltaTime;
             nextY = -1 * (float)Math.Sin(angle) * speed * Time.deltaTime;
         }
         else //Q4
         {
-            double angle = Math.Atan2(targetX, -1 * targetY);
+            double angle = Math.Atan2(-1 * targetY, targetX);
             nextX = (float)Math.Cos(angle) * speed * Time.deltaTime;
             nextY = -1 * (float)Math.Sin(angle) * speed * Time.deltaTime;
         }
