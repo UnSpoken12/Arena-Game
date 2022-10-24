@@ -21,22 +21,39 @@ public class Slime : MonoBehaviour
         // Input
         Vector2 playerPos = GameObject.Find("Player").transform.position;
         Vector2 currentPos = this.transform.position;
-        Vector2 displacement = new Vector2((playerPos.x - currentPos.x) * Time.deltaTime, (playerPos.y - currentPos.y) * Time.deltaTime);
-        if (Math.Abs(displacement.magnitude) < speed * Time.deltaTime)
+
+        float targetX = playerPos.x - currentPos.x;
+        float targetY = playerPos.y - currentPos.y;
+        float nextX, nextY;
+        
+        // Finds quandrant that it should be moving in
+        if (targetX > 0 && targetY > 0) // Q1
         {
-            double angle = Vector2.Angle(playerPos, currentPos);
-            float nextX = (float)Math.Cos(angle) * speed * Time.deltaTime;
-            float nextY = (float)Math.Sin(angle) * speed * Time.deltaTime;
-            displacement = new Vector2(nextX, nextY);
+            double angle = Math.Atan2(targetX, targetY);
+            nextX = (float)Math.Cos(angle) * speed * Time.deltaTime;
+            nextY = (float)Math.Sin(angle) * speed * Time.deltaTime;
         }
-        //Vector2 targetPos = Vector2.MoveTowards(this.transform.position, new Vector2(playerPos.x, playerPos.y), speed);
-        //double angle = Vector2.Angle(new Vector2(playerPos.x, playerPos.y), this.transform.position);
+        else if (targetY > 0) // Q2
+        {
+            double angle = Math.Atan2(-1 * targetX, targetY);
+            nextX = -1 * (float)Math.Cos(angle) * speed * Time.deltaTime;
+            nextY = (float)Math.Sin(angle) * speed * Time.deltaTime;
+        }
+        else if (targetX < 0) // Q3
+        {
+            double angle = Math.Atan2(-1 * targetX, -1 * targetY);
+            nextX = -1 * (float)Math.Cos(angle) * speed * Time.deltaTime;
+            nextY = -1 * (float)Math.Sin(angle) * speed * Time.deltaTime;
+        }
+        else //Q4
+        {
+            double angle = Math.Atan2(targetX, -1 * targetY);
+            nextX = (float)Math.Cos(angle) * speed * Time.deltaTime;
+            nextY = -1 * (float)Math.Sin(angle) * speed * Time.deltaTime;
+        }
 
         // Movement
-        //float totalHoriMovement = targetPos.x * Time.deltaTime;
-        //float totalVertMovement = targetPos.y * Time.deltaTime;
-        //transform.Translate(new Vector2(totalHoriMovement, totalVertMovement));
-        transform.Translate(displacement);
+        transform.Translate(new Vector2(nextX, nextY));
 
         // Transition to walking animation
         //animator.SetFloat("Speed", Mathf.Abs(horizontalInput + verticalInput));
