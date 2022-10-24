@@ -4960,7 +4960,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b60969fa42624445b69c2b3b542dfdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seconds: 5
   tilemap:
   - {fileID: 158240756}
   - {fileID: 1864646912}
@@ -16730,7 +16729,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0037530363, y: -0.12166159}
+  m_Offset: {x: 0.0037530363, y: -0.09}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -16741,7 +16740,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.064430416, y: 0.078598596}
+  m_Size: {x: 0.064430416, y: 0.15}
   m_EdgeRadius: 0
 --- !u!50 &1800269566
 Rigidbody2D:
