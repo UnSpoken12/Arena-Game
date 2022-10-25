@@ -8,6 +8,10 @@ public class Slime : MonoBehaviour
     public int maxHealth = 3;
     private float speed = .5f;
     int currentHealth;
+    public Transform slime;
+    public LayerMask playerLayer;
+    private float hitCooldown = 1f;
+    private float lastHit = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -67,6 +71,17 @@ public class Slime : MonoBehaviour
         {
             transform.localScale = new Vector2(-1, 1);
         }*/
+
+        // Checking collision
+        currentPos.x += .06f;
+        currentPos.y += .05f;
+        Vector2 oppositeCorner = new Vector2(currentPos.x - .16f, currentPos.y - .12f); // Hardcoded values for height and width of hitbox
+        Collider2D playerHit = Physics2D.OverlapArea(currentPos, oppositeCorner, playerLayer, float.NegativeInfinity, float.PositiveInfinity);
+        if (playerHit != null && Time.time > lastHit + hitCooldown)
+        {
+            lastHit = Time.time;
+            playerHit.GetComponent<Movement>().Damage();
+        }
     }
 
     public void Damage()

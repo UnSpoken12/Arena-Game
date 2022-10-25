@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -9,6 +10,15 @@ public class Movement : MonoBehaviour
     public Animator animator;
     public Transform attackPoint;
     public LayerMask enemyLayers;
+    public int currentHealth;
+    public int maxHealth = 3;
+    public bool displayHealth;
+
+    void Start()
+    {
+        currentHealth = maxHealth;
+        displayHealth = true;
+    }
 
     private void Update()
     {
@@ -46,9 +56,31 @@ public class Movement : MonoBehaviour
             foreach(Collider2D enemy in hitEnemies)
             {
                 enemy.GetComponent<Slime>().Damage();
-                Debug.Log("Hit");
+                UnityEngine.Debug.Log("Hit");
             }
         }
+
+        // Displaying health
+        if (displayHealth)
+        {
+            UnityEngine.Debug.Log("Current Health: " + currentHealth);
+            displayHealth = false;
+        }
         #endregion
+    }
+
+    public void Damage()
+    {
+        currentHealth--;
+        displayHealth = true;
+        GameObject.Find("Hearts").GetComponent<HeartHandler>().Damage();
+        // Other stuff
+        if (currentHealth <= 0)
+        {
+            // Die
+            GetComponent<Collider2D>().enabled = false;
+            this.enabled = false;
+            Destroy(this.gameObject);
+        }
     }
 }
