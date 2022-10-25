@@ -25,7 +25,7 @@ public class SpawnController : MonoBehaviour
         }
         else if (waves <= 0)
         {
-            winGame();
+            this.enabled = false;
         }
 
         // Change location of the spawner to move closer to the center

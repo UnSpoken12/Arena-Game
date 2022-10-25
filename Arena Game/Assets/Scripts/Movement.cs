@@ -16,6 +16,10 @@ public class Movement : MonoBehaviour
     private float hitCooldown = 1f;
     private float lastHit = 0f;
 
+    public delegate void PlayerDead();
+    public static event PlayerDead playerDead;
+
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -88,6 +92,7 @@ public class Movement : MonoBehaviour
 
     private void Death()
     {
+        playerDead();
         GetComponent<Collider2D>().enabled = false;
         GetComponent<SpriteRenderer>().enabled = false;
         this.enabled = false;

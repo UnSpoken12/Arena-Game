@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Disappear : MonoBehaviour // Change name to ArenaGrounds
+public class ArenaGrounds : MonoBehaviour
 {
     // Script handles the arena floor
     private float seconds = 5f;

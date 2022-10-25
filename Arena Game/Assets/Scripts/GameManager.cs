@@ -1,16 +1,19 @@
-using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     public GameObject player;
-    public Disappear arenaBreak;
+    public ArenaGrounds arenaBreak;
+    public int numOfKills = 0;
     private State state;
     public enum State { IDLE, DEAD, WIN }
 
     void Start()
     {
         DetectFloor.playerDead += playerDead;
+        Movement.playerDead += playerDead;
         SpawnController.winGame += WinGame;
         state = State.IDLE;
     }
@@ -23,6 +26,10 @@ public class GameManager : MonoBehaviour
                 if (Input.GetMouseButton(0))
                 {
                     arenaBreak.enabled = true;
+                }
+                if (numOfKills == 12)
+                {
+                    state = State.WIN;
                 }
                 break;
             case State.WIN:
@@ -49,8 +56,9 @@ public class GameManager : MonoBehaviour
 
     private void Win()
     {
-        player.GetComponent<Movement>().enabled = false;
+        //player.GetComponent<Movement>().enabled = false;
         Debug.Log("You win :)");
+        SceneManager.LoadScene(3);
     }
 
     private void Death()
@@ -58,6 +66,14 @@ public class GameManager : MonoBehaviour
         player.GetComponent<SpriteRenderer>().enabled = false;
         player.GetComponent<Movement>().enabled = false;
         Debug.Log("You died so sad :(");
+        SceneManager.LoadScene(2);
         DetectFloor.playerDead -= playerDead;
+        Movement.playerDead -= playerDead;
+    }
+
+    public void AddKill()
+    {
+        Debug.Log("hi");
+        numOfKills += 1;
     }
 }

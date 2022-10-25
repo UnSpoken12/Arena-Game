@@ -18,6 +18,11 @@ public class Menu : MonoBehaviour
         Application.Quit();
     }
 
+    public void BackToMenu()
+    {
+        StartCoroutine(LoadLevel(0));
+    }
+
     IEnumerator LoadLevel(int levelIndex)
     {
         transition.SetTrigger("Start");

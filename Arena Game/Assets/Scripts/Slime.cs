@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Slime : MonoBehaviour
 {
+    private GameManager gm;
     private int maxHealth = 3;
     private float speed = .5f;
     private int currentHealth;
@@ -18,6 +19,7 @@ public class Slime : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameObject.Find("Game Manager").GetComponent<GameManager>();
         currentHealth = maxHealth;
     }
 
@@ -91,6 +93,7 @@ public class Slime : MonoBehaviour
             // Die?
             if (currentHealth <= 0)
             {
+                gm.AddKill();
                 GetComponent<Collider2D>().enabled = false;
                 this.enabled = false;
                 Destroy(this.gameObject);
