@@ -58,8 +58,11 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Arena Game/UserSettings/*
+Arena Game/Green Arena_BurstDebugInformation_DoNotShip/*
+Arena Game/Green Arena_Data/*
+Arena Game/MonoBleedingEdge/*
 Arena Game/UserSettings/Layouts/default-2021.dwlt
-Arena Game/UserSettings/EditorUserSettings.asset
-Arena Game/UserSettings/Layouts/default-2021.dwlt
-Arena Game/UserSettings/Layouts/default-2021.dwlt
-Arena Game/UserSettings/Layouts/default-2021.dwlt
+Arena Game/Green Arena.exe
+Arena Game/UnityCrashHandler64.exe
+Arena Game/UnityPlayer.dll
