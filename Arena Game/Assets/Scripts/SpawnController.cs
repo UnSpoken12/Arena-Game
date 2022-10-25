@@ -1,25 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnController : MonoBehaviour
 {
-    public GameObject[] enemies;
-    public Transform parent;
-    public float xBound = 1f;
-    public float yBound = 1f;
+    public GameObject[] enemyPrefabs;
+    public Transform center;
+    public float dispacementAmount = .5f;
 
     private void Start()
     {
-        InvokeRepeating(nameof(spawnEnemy), 1f, 5f);
+        InvokeRepeating(nameof(SpawnEnemy), 1f, 5f);
     }
 
-    private void spawnEnemy()
+    private void SpawnEnemy()
     {
-        // Spawn Slime
-        Instantiate(enemies[0], transform.position, transform.rotation);
+        // Spawn Slime prefab
+        Instantiate(enemyPrefabs[0], transform.position, transform.rotation);
 
-        // Change location of the spawner to a random location between two boundaries
-        transform.position = new Vector2(Random.Range(-1, xBound), Random.Range(-1, yBound));
+        // Change location of the spawner to move closer to the center
+        Vector2 currPos = transform.position;
+        if (currPos.x < center.position.x)
+        {
+            transform.Translate(Vector2.right * dispacementAmount);
+        }
+        else if (currPos.x > center.position.x)
+        {
+            transform.Translate(Vector2.left * dispacementAmount);
+        }
+        if (currPos.y < center.position.y)
+        {
+            transform.Translate(Vector2.up * dispacementAmount);
+        }
+        else if (currPos.y > center.position.y)
+        {
+            transform.Translate(Vector2.down * dispacementAmount);
+        }
     }
 }
