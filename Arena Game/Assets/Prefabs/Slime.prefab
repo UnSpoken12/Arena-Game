@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3418016fa0c1fa64e8dd7ecbc044ecfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 3582532358066498333, guid: 2de16d7713e8d73429329df7079de4b0, type: 3}
+  animator: {fileID: 490436460261192190}
   slime: {fileID: 490436460261192191}
   playerLayer:
     serializedVersion: 2

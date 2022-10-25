@@ -7,6 +7,7 @@ using UnityEngine;
 public class Slime : MonoBehaviour
 {
     private GameManager gm;
+    public Animator animator;
     private int maxHealth = 3;
     private float speed = .5f;
     private int currentHealth;
@@ -59,8 +60,20 @@ public class Slime : MonoBehaviour
             nextY = -1 * (float)Math.Sin(angle) * speed * Time.deltaTime;
         }
 
-        // Movement
+        // Change direction
+        if (nextX > 0)
+        {
+            transform.localScale = new Vector2(1, 1);
+        }
+        else if (nextX < 0)
+        {
+            transform.localScale = new Vector2(-1, 1);
+        }
+
+        // Movement and Animation
         if (Time.time > lastHit + stun) { transform.Translate(new Vector2(nextX, nextY)); }
+        animator.SetFloat("Speed", Mathf.Abs((nextX + nextY)/Time.deltaTime));
+        
 
         // Checking collision
         currentPos.x += .06f;
@@ -94,6 +107,7 @@ public class Slime : MonoBehaviour
             if (currentHealth <= 0)
             {
                 gm.AddKill();
+                animator.SetTrigger("Dead");
                 GetComponent<Collider2D>().enabled = false;
                 this.enabled = false;
                 Destroy(this.gameObject);
