@@ -395,7 +395,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You have survived
+  m_Text: You have killed all enemies
 --- !u!222 &386619906
 CanvasRenderer:
   m_ObjectHideFlags: 0
