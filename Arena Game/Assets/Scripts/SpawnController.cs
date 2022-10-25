@@ -7,8 +7,6 @@ public class SpawnController : MonoBehaviour
     private float spawnTime = 12f;
     private float dispacementAmount = .3f;
     private int waves = 3;
-    public delegate void WinGame();
-    public static event WinGame winGame;
 
     private void Start()
     {

@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     {
         DetectFloor.playerDead += playerDead;
         Movement.playerDead += playerDead;
-        SpawnController.winGame += WinGame;
         state = State.IDLE;
     }
 
