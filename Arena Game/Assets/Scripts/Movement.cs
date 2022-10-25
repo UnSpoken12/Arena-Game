@@ -6,13 +6,15 @@ public class Movement : MonoBehaviour
     private float speed = 1.5f;
     private float lastAttacked = 0;
     private float attackInterval = 1f;
-    private float attackRange = 0.2f;
+    private float attackRange = 0.25f;
     public Animator animator;
     public Transform attackPoint;
     public LayerMask enemyLayers;
     public int currentHealth;
     public int maxHealth = 3;
-    public bool displayHealth;
+    private bool displayHealth;
+    public float hitCooldown = 1f;
+    private float lastHit = 0f;
 
     void Start()
     {
@@ -50,6 +52,7 @@ public class Movement : MonoBehaviour
         {
             animator.SetTrigger("Attack");
             lastAttacked = Time.time;
+            lastHit = Time.time - hitCooldown + .6f;
 
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
@@ -71,16 +74,20 @@ public class Movement : MonoBehaviour
 
     public void Damage()
     {
-        currentHealth--;
-        displayHealth = true;
-        GameObject.Find("Hearts").GetComponent<HeartHandler>().Damage();
-        // Other stuff
-        if (currentHealth <= 0)
+        if (Time.time > lastHit + hitCooldown)
         {
-            // Die
-            GetComponent<Collider2D>().enabled = false;
-            this.enabled = false;
-            Destroy(this.gameObject);
+            lastHit = Time.time;
+            currentHealth--;
+            displayHealth = true;
+            GameObject.Find("Hearts").GetComponent<HeartHandler>().Damage();
+            // Other stuff
+            if (currentHealth <= 0)
+            {
+                // Die
+                GetComponent<Collider2D>().enabled = false;
+                this.enabled = false;
+                Destroy(this.gameObject);
+            }
         }
     }
 }
