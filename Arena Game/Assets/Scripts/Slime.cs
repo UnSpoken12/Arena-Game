@@ -1,15 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class Slime : MonoBehaviour
 {
-    public int maxHealth = 3;
+    private int maxHealth = 3;
     private float speed = .5f;
-    int currentHealth;
+    private int currentHealth;
     public Transform slime;
     public LayerMask playerLayer;
+    private float lastHit = 0f;
+    private float knockback = .8f;
+    private float stun = .25f;
 
     // Start is called before the first frame update
     void Start()
@@ -20,10 +24,9 @@ public class Slime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Input
+        // Finds Player
         Vector2 playerPos = GameObject.Find("Player").transform.position;
-        Vector2 currentPos = this.transform.position;
-
+        Vector2 currentPos = transform.position;
         float targetX = playerPos.x - currentPos.x;
         float targetY = playerPos.y - currentPos.y;
         float nextX, nextY;
@@ -55,20 +58,7 @@ public class Slime : MonoBehaviour
         }
 
         // Movement
-        transform.Translate(new Vector2(nextX, nextY));
-
-        // Transition to walking animation
-        //animator.SetFloat("Speed", Mathf.Abs(horizontalInput + verticalInput));
-
-        // Change the direction it's facing
-        /*if (horizontalInput > 0)
-        {
-            transform.localScale = new Vector2(1, 1);
-        }
-        else if (horizontalInput < 0)
-        {
-            transform.localScale = new Vector2(-1, 1);
-        }*/
+        if (Time.time > lastHit + stun) { transform.Translate(new Vector2(nextX, nextY)); }
 
         // Checking collision
         currentPos.x += .06f;
@@ -81,16 +71,30 @@ public class Slime : MonoBehaviour
         }
     }
 
-    public void Damage()
+    public void Damage(float hitCoolDown)
     {
-        currentHealth--;
-        //Knockback, animation
-        if (currentHealth <= 0)
+        // Checks cooldown
+        if (Time.time > lastHit + hitCoolDown)
         {
-            // Slime die
-            GetComponent<Collider2D>().enabled = false;
-            this.enabled = false;
-            Destroy(this.gameObject);
+            // Sets cooldown time
+            lastHit = Time.time;
+            currentHealth--;
+
+            // Knockback
+            Vector2 playerPos = GameObject.Find("Player").transform.position;
+            Vector2 currentPos = transform.position;
+            Vector2 diff = new Vector2(currentPos.x - playerPos.x, currentPos.y - playerPos.y);
+            float scaleX = Math.Abs(diff.x / diff.magnitude) * knockback;
+            float scaleY = Math.Abs(diff.y / diff.magnitude) * knockback;
+            transform.Translate(new Vector2(diff.x * scaleX, diff.y * scaleY));
+
+            // Die?
+            if (currentHealth <= 0)
+            {
+                GetComponent<Collider2D>().enabled = false;
+                this.enabled = false;
+                Destroy(this.gameObject);
+            }
         }
     }
 }

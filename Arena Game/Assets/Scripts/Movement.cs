@@ -7,19 +7,18 @@ public class Movement : MonoBehaviour
     private float lastAttacked = 0;
     private float attackInterval = 1f;
     private float attackRange = 0.25f;
+    private float attackDuration = .1f;
     public Animator animator;
     public Transform attackPoint;
     public LayerMask enemyLayers;
     public int currentHealth;
-    public int maxHealth = 3;
-    private bool displayHealth;
-    public float hitCooldown = 1f;
+    private int maxHealth = 3;
+    private float hitCooldown = 1f;
     private float lastHit = 0f;
 
     void Start()
     {
         currentHealth = maxHealth;
-        displayHealth = true;
     }
 
     private void Update()
@@ -47,40 +46,39 @@ public class Movement : MonoBehaviour
         }
         #endregion
 
-        #region// Combat
+        #region // Combat
+        // Checks attack cooldown
         if (Input.GetMouseButtonDown(0) && Time.time > lastAttacked + attackInterval)
         {
             animator.SetTrigger("Attack");
             lastAttacked = Time.time;
-            lastHit = Time.time - hitCooldown + .6f;
-
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-
-            foreach(Collider2D enemy in hitEnemies)
-            {
-                enemy.GetComponent<Slime>().Damage();
-                UnityEngine.Debug.Log("Hit");
-            }
+            lastHit = Time.time - hitCooldown + .5f;
         }
 
-        // Displaying health
-        if (displayHealth)
+        // Does the attack for a duration
+        if (Time.time < lastAttacked + attackDuration)
         {
-            UnityEngine.Debug.Log("Current Health: " + currentHealth);
-            displayHealth = false;
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                enemy.GetComponent<Slime>().Damage(hitCooldown);
+            }
         }
         #endregion
     }
 
     public void Damage()
     {
+        // Checks cooldown
         if (Time.time > lastHit + hitCooldown)
         {
+            // Resets cooldown
             lastHit = Time.time;
             currentHealth--;
-            displayHealth = true;
+
+            // Takes damage and checks for death
             GameObject.Find("Hearts").GetComponent<HeartHandler>().Damage();
-            // Other stuff
             if (currentHealth <= 0)
             {
                 Death();

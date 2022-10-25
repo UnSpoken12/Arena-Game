@@ -20357,9 +20357,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 490436460261191938, guid: a1c90f5598380994b915f620db9211a6, type: 3}
+      propertyPath: stun
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 490436460261191938, guid: a1c90f5598380994b915f620db9211a6, type: 3}
       propertyPath: slime
       value: 
       objectReference: {fileID: 1182335418}
+    - target: {fileID: 490436460261191938, guid: a1c90f5598380994b915f620db9211a6, type: 3}
+      propertyPath: knockback
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 490436460261191938, guid: a1c90f5598380994b915f620db9211a6, type: 3}
       propertyPath: playerLayer.m_Bits
       value: 64
