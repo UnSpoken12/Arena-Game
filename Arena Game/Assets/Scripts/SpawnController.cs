@@ -4,17 +4,29 @@ public class SpawnController : MonoBehaviour
 {
     public GameObject[] enemyPrefabs;
     public Transform center;
-    public float dispacementAmount = .5f;
+    private float spawnTime = 12f;
+    private float dispacementAmount = .3f;
+    private int waves = 3;
+    public delegate void WinGame();
+    public static event WinGame winGame;
 
     private void Start()
     {
-        InvokeRepeating(nameof(SpawnEnemy), 1f, 5f);
+        InvokeRepeating(nameof(SpawnEnemy), 1f, spawnTime);
     }
 
     private void SpawnEnemy()
     {
         // Spawn Slime prefab
-        Instantiate(enemyPrefabs[0], transform.position, transform.rotation);
+        if (waves > 0)
+        {
+            Instantiate(enemyPrefabs[0], transform.position, transform.rotation);
+            waves--;
+        }
+        else if (waves <= 0)
+        {
+            winGame();
+        }
 
         // Change location of the spawner to move closer to the center
         Vector2 currPos = transform.position;

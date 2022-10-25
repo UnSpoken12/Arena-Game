@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -10,6 +11,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         DetectFloor.playerDead += playerDead;
+        SpawnController.winGame += WinGame;
         state = State.IDLE;
     }
 
@@ -24,8 +26,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case State.WIN:
-                // Win condition - Killed all enemies
-                // ...
+                Win();
                 break;
             case State.DEAD:
                 Death();
@@ -36,15 +37,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void WinGame()
+    {
+        state = State.WIN;
+    }
+
     private void playerDead()
     {
         state = State.DEAD;
+    }
+
+    private void Win()
+    {
+        player.GetComponent<Movement>().enabled = false;
+        Debug.Log("You win :)");
     }
 
     private void Death()
     {
         player.GetComponent<SpriteRenderer>().enabled = false;
         player.GetComponent<Movement>().enabled = false;
+        Debug.Log("You died so sad :(");
         DetectFloor.playerDead -= playerDead;
     }
 }

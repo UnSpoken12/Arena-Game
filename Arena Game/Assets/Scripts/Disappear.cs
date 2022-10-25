@@ -2,15 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Disappear : MonoBehaviour
+public class Disappear : MonoBehaviour // Change name to ArenaGrounds
 {
-    // Script handles the arena floor and spawns enemies -> Should change script name to ArenaGrounds
+    // Script handles the arena floor
     private float seconds = 5f;
     private float flashSeconds = .5f;
     public TilemapRenderer[] tilemap;
-
-    // Variables for the spawners, relocation distance and number of enemies
-    // ...
 
     void Start()
     {
@@ -25,9 +22,6 @@ public class Disappear : MonoBehaviour
         bool flash = false;
         foreach (TilemapRenderer t in tilemap)
         {
-            // Spawn in enemies
-            // ...
-
             yield return new WaitForSeconds(seconds);
             for (int i = 0; i < 7; i++)
             {
@@ -44,10 +38,6 @@ public class Disappear : MonoBehaviour
             }
             t.tag = "Void";
             t.enabled = false;
-
-            // Move spawners closer to center
-            // ...
-
         }
     }
 }
