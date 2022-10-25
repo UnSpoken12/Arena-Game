@@ -23,6 +23,11 @@ public class Menu : MonoBehaviour
         StartCoroutine(LoadLevel(0));
     }
 
+    public void Credits()
+    {
+        SceneManager.LoadScene(4);
+    }
+
     IEnumerator LoadLevel(int levelIndex)
     {
         transition.SetTrigger("Start");
