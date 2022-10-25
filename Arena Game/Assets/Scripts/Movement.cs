@@ -83,11 +83,15 @@ public class Movement : MonoBehaviour
             // Other stuff
             if (currentHealth <= 0)
             {
-                // Die
-                GetComponent<Collider2D>().enabled = false;
-                this.enabled = false;
-                Destroy(this.gameObject);
+                Death();
             }
         }
+    }
+
+    private void Death()
+    {
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<SpriteRenderer>().enabled = false;
+        this.enabled = false;
     }
 }
